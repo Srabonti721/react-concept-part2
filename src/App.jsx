@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Count from './Count'
 import ShoppingCart from './Cart'
 import Players from "./Players"
+import Product from './Product'
 import './App.css'
 import Game from "./Game"
 function App() {
@@ -28,6 +29,7 @@ function App() {
   return (
     <>
       <h2>react concept part 2</h2>
+      <Product></Product>
       <Players></Players>
       <ShoppingCart></ShoppingCart>
       <Count></Count>
