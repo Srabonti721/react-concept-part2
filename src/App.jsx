@@ -1,11 +1,27 @@
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import Count from './Count'
 import ShoppingCart from './Cart'
 import Players from "./Players"
 import Product from './Product'
+import Users from './Users'
+import Friends from './Friends'
 import './App.css'
 import Game from "./Game"
+
+
+
+  const fetchUser = fetch("https://jsonplaceholder.typicode.com/users")
+  .then(res=>res.json())
+
+
+  const fetchFriendsData = async() =>{
+    const res = await fetch("https://jsonplaceholder.typicode.com/users")
+    return res.json()
+  }
 function App() {
+
+    const friendsPromise = fetchFriendsData()
+
   const [count, setCount] = useState(0)
   // click 2
   function handleBtn2() {
@@ -24,11 +40,17 @@ function App() {
     { id: 1, name: "candy", level: 700, play: true, },
     { id: 2, name: "ludo king", level: "no level", play: true, },
     { id: 3, name: "bubble", level: 400, play: false, },
-
   ]
   return (
+
     <>
       <h2>react concept part 2</h2>
+      <Suspense fallback={<h2>friend data is coming</h2>}>
+        <Friends friendsPromise = {friendsPromise}></Friends>
+      </Suspense>
+     <Suspense fallback = {<h2>loading...</h2>}>
+       <Users fetchUser={fetchUser}></Users>
+     </Suspense>
       <Product></Product>
       <Players></Players>
       <ShoppingCart></ShoppingCart>
