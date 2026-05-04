@@ -5,6 +5,8 @@ import Players from "./Players"
 import Product from './Product'
 import Users from './Users'
 import Friends from './Friends'
+import Books from './Books'
+import Post from './Post'
 import './App.css'
 import Game from "./Game"
 
@@ -18,9 +20,20 @@ import Game from "./Game"
     const res = await fetch("https://jsonplaceholder.typicode.com/users")
     return res.json()
   }
+
+  const fetchBooksData = async()=>{
+    const res = await fetch('https://jsonplaceholder.typicode.com/users')
+    return res.json()
+  }
+  const fetchPostData = async() =>{
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts')
+   return res.json()
+  }
 function App() {
 
     const friendsPromise = fetchFriendsData()
+    const booksPromise = fetchBooksData()
+    const postPromise = fetchPostData()
 
   const [count, setCount] = useState(0)
   // click 2
@@ -45,6 +58,12 @@ function App() {
 
     <>
       <h2>react concept part 2</h2>
+      <Suspense fallback={<p>post data...</p>}>
+        <Post postPromise={postPromise}></Post>
+      </Suspense>
+      <Suspense fallback={<h2>books data coming...</h2>}>
+        <Books booksPromise={booksPromise}></Books>
+      </Suspense>
       <Suspense fallback={<h2>friend data is coming</h2>}>
         <Friends friendsPromise = {friendsPromise}></Friends>
       </Suspense>
