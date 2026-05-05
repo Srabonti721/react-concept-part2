@@ -7,13 +7,17 @@ import Users from './Users'
 import Friends from './Friends'
 import Books from './Books'
 import Post from './Post'
+import Phones from './Phones'
+import Number from './Number'
+import ShowHide from './ShowHied'
+import Fetch from './Fetch'
 import './App.css'
 import Game from "./Game"
 
 
 
-  const fetchUser = fetch("https://jsonplaceholder.typicode.com/users")
-  .then(res=>res.json())
+  // const fetchUser = fetch("https://jsonplaceholder.typicode.com/users")
+  // .then(res=>res.json())
 
 
   const fetchFriendsData = async() =>{
@@ -29,11 +33,16 @@ import Game from "./Game"
     const res = await fetch('https://jsonplaceholder.typicode.com/posts')
    return res.json()
   }
+  const UserData= async() =>{
+    const res = await fetch ("https://jsonplaceholder.typicode.com/users") 
+    return res.json()
+  }
 function App() {
 
     const friendsPromise = fetchFriendsData()
     const booksPromise = fetchBooksData()
     const postPromise = fetchPostData()
+    const UserPromise = UserData()
 
   const [count, setCount] = useState(0)
   // click 2
@@ -58,18 +67,24 @@ function App() {
 
     <>
       <h2>react concept part 2</h2>
-      <Suspense fallback={<p>post data...</p>}>
+      <Suspense fallback={<h2>loading user...</h2>}>
+        <Fetch UserPromise={UserPromise}></Fetch>
+      </Suspense>
+      <ShowHide></ShowHide>
+      <Number></Number>
+      {/* <Phones></Phones> */}
+      {/* <Suspense fallback={<p>post data...</p>}>
         <Post postPromise={postPromise}></Post>
-      </Suspense>
-      <Suspense fallback={<h2>books data coming...</h2>}>
+      </Suspense> */}
+      {/* <Suspense fallback={<h2>books data coming...</h2>}>
         <Books booksPromise={booksPromise}></Books>
-      </Suspense>
-      <Suspense fallback={<h2>friend data is coming</h2>}>
+      </Suspense> */}
+      {/* <Suspense fallback={<h2>friend data is coming</h2>}>
         <Friends friendsPromise = {friendsPromise}></Friends>
-      </Suspense>
-     <Suspense fallback = {<h2>loading...</h2>}>
+      </Suspense> */}
+     {/* <Suspense fallback = {<h2>loading...</h2>}>
        <Users fetchUser={fetchUser}></Users>
-     </Suspense>
+     </Suspense> */}
       <Product></Product>
       <Players></Players>
       <ShoppingCart></ShoppingCart>
